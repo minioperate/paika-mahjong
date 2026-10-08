@@ -1,0 +1,6 @@
+.edge-test*/
+node_modules/
+*.tar
+test.png
+__pycache__/
+

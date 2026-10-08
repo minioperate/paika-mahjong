@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b3028">
+  <meta name="description" content="牌咖，台灣十六張麻將的線上牌桌、記帳與排行榜。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <title>牌咖｜台灣麻將</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">🀄</span><span><strong>牌咖</strong><small>TAIWAN MAHJONG</small></span></div>
+      <nav aria-label="主選單">
+        <button class="nav-item active" data-view="lobby"><span>⌂</span> 大廳</button>
+        <button class="nav-item" data-view="account"><span>▥</span> 每月記帳</button>
+        <button class="nav-item" data-view="ranking"><span>♛</span> 排行榜</button>
+        <button class="nav-item" data-view="rules"><span>ⓘ</span> 玩法與台數</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="mode-tag" id="modeTag">示範模式</div><button id="profileBtn" class="profile-button"><span class="avatar" id="avatar">客</span><span><b id="profileName">訪客玩家</b><small id="profileSub">點擊設定暱稱</small></span><span class="chev">›</span></button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><span class="eyebrow">THE TILE CLUB</span><h1 id="pageTitle">今晚，開一桌吧。</h1></div><div class="top-actions"><span id="todayLabel"></span><button id="authBtn" class="button button-outline">Google 登入</button></div></header>
+      <div id="notice" role="status" aria-live="polite"></div>
+      <section id="lobbyView" class="view active">
+        <div class="hero"><div><span class="hero-kicker">台灣十六張 · 線上牌桌</span><h2>好牌上手，<br><em>好友入席。</em></h2><p>四人一桌、花牌補牌、自動理牌。開桌後選好底台與將數，就等牌咖到齊。</p><button id="createBtn" class="button button-accent">＋ 開新房間 <span>↗</span></button></div><div class="hero-art" aria-hidden="true"><div class="hero-tile t1">🀄</div><div class="hero-tile t2">🀅</div><div class="hero-tile t3">🀙</div><div class="hero-ring"></div></div></div>
+        <div class="section-heading"><div><span class="eyebrow">AVAILABLE TABLES</span><h2>房間列表</h2></div><div class="section-actions"><span id="roomCount">0 間房</span><button id="refreshBtn" class="icon-button" aria-label="重新整理">↻</button></div></div>
+        <div id="rooms" class="room-grid"></div>
+      </section>
+      <section id="tableView" class="view"><div class="table-head"><button id="backLobby" class="text-button">← 返回大廳</button><div><span class="eyebrow">LIVE TABLE</span><h2 id="tableTitle">牌桌</h2></div><button id="copyRoom" class="button button-outline">複製房號</button></div><div id="game"></div></section>
+      <section id="accountView" class="view"><div class="section-heading"><div><span class="eyebrow">MONTHLY LEDGER</span><h2>每月記帳</h2></div><input id="monthPicker" type="month" aria-label="選擇月份"></div><div id="account"></div></section>
+      <section id="rankingView" class="view"><div class="section-heading"><div><span class="eyebrow">LEADERBOARD</span><h2>排行榜</h2></div><select id="rankPeriod" aria-label="排行榜期間"><option value="month">本月</option><option value="all">累計</option></select></div><div id="ranking"></div></section>
+      <section id="rulesView" class="view"><div class="section-heading"><div><span class="eyebrow">HOUSE RULES</span><h2>玩法與台數</h2></div></div><div id="rules"></div></section>
+    </main>
+  </div>
+  <dialog id="createDialog"><form method="dialog" id="createForm"><div class="dialog-head"><span class="eyebrow">NEW TABLE</span><button class="icon-button" value="cancel" aria-label="關閉">×</button></div><h2>開一桌好牌</h2><label>房間名稱<input name="name" maxlength="24" required placeholder="例如：週五牌咖局"></label><label>底 / 台<div class="choice-row"><label><input type="radio" name="stakes" value="30/10" checked><span>30 / 10</span></label><label><input type="radio" name="stakes" value="50/20"><span>50 / 20</span></label><label><input type="radio" name="stakes" value="100/20"><span>100 / 20</span></label></div></label><label>打幾將<select name="rounds"><option value="1">1 將 · 四圈</option><option value="2">2 將 · 八圈</option><option value="3">3 將 · 十二圈</option><option value="4">4 將 · 十六圈</option></select></label><p class="hint">1 將為四圈，至少 16 局；連莊會增加局數。</p><button class="button button-accent full" value="create">建立房間</button></form></dialog>
+  <dialog id="profileDialog"><form method="dialog" id="profileForm"><div class="dialog-head"><span class="eyebrow">MY PROFILE</span><button class="icon-button" value="cancel" aria-label="關閉">×</button></div><h2>你的牌咖名片</h2><label>顯示暱稱<input name="nickname" maxlength="16" required></label><p class="hint" id="profileHint"></p><button class="button button-accent full" value="save">儲存暱稱</button><button type="button" id="signOutBtn" class="text-button full">登出</button></form></dialog>
+  <script type="module" src="./app.js"></script>
+  <script>if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script>
+</body>
+</html>
+
